@@ -1,0 +1,22 @@
+@model Client.Models.ToDo
+@{
+    var verify = true;
+    var id = Model.Id;
+    var title = Model.Title;
+    var description = Model.Description;
+    var done = Model.Done == true ? "false" : "true" ;
+}
+
+<form asp-action="Toogle" asp-controller="ToDo" class="m-0 p-0" id="toogle-form" method="post">
+    <input name="id" id="id" value="@id" hidden />
+    <input name="title" id="title" value="@title"  hidden />
+    <input name="description" id="descriptio" value="@description"  hidden />
+    <input name="done" id="done" value="@done" hidden />
+    <button type="submit" class="btn btn-dark opactity-75 rounded text-white form-control toogleToDo">
+    @if (Model.Done == verify) {
+        <i class="fa-solid fa-toggle-on"></i>
+    } else {
+        <i class="fa-solid fa-toggle-off"></i>
+    }
+    </button>
+</form>

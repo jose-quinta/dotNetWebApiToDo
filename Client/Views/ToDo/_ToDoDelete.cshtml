@@ -1,0 +1,8 @@
+@model Client.Models.ToDo
+
+<form asp-action="Delete" asp-controller="ToDo" class="m-0 p-0" id="delete-form" method="post">
+    <input asp-for="@Model.Id" hidden />
+    <button type="submit" class="btn btn-danger rounded text-white form-control deleteToDo">
+        <i class="fas fa-trash-alt"></i>
+    </button>
+</form>

@@ -1,0 +1,102 @@
+﻿@using Client.Models
+@model IEnumerable<ToDo>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="d-flex justify-content-between mb-3">
+    <div class="flex-grow-1 text-center">
+        <h3>To Do List</h3>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary newToDo" @* data-id="@item.OrderHeader.Id" *@ data-toggle="modal">
+            <i class="far fa-list-alt"></i> New
+        </button>
+    </div>
+</div>
+
+@if (Model.Count() < 1) {
+    <div>
+        <p class="text-center display-6 text-danger">No exist To Do list!!</p>
+    </div>
+} else {
+    <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 gx-2 gx-sm-2 gx-md-2 gx-lg-3">
+    @foreach (var item in Model) {
+        <partial name="_CardToDo" model="@item" />
+    }
+    </div>
+}
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog-centered modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark opacity-75 text-light justify-content-center"><h5 class="modal-title"></h5></div>
+            <div class="modal-body justify-content-center" id="modalContent"></div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+    <script>
+        $(function () {
+            $(".newToDo").click(function () {
+                var $button = $(this);
+                var urlString = '@Url.Action("Create","ToDo")';
+                $(".modal-title").text("Create To Do");
+                $.ajax({
+                    type: "GET",
+                    url: urlString + "/",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        $('#modalContent').html(data);
+                        $('#modal').modal('show');
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed");
+                    }
+                })
+            })
+
+            $(".editToDo").click(function () {
+                var $button = $(this);
+                var id = $button.attr('data-id');
+                var urlString = '@Url.Action("Edit","ToDo")';
+                $(".modal-title").text("Edit To Do");
+                $.ajax({
+                    type: "GET",
+                    url: urlString + "/" + id,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        $('#modalContent').html(data);
+                        $('#modal').modal('show');
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed");
+                    }
+                })
+            })
+
+            $(".detailsToDo").click(function () {
+                var $button = $(this);
+                var id = $button.attr('data-id');
+                var urlString = '@Url.Action("Details","ToDo")';
+                $(".modal-title").text("Details To Do");
+                $.ajax({
+                    type: "GET",
+                    url: urlString + "/" + id,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        $('#modalContent').html(data);
+                        $('#modal').modal('show');
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed");
+                    }
+                })
+            })
+
+        });
+    </script>
+}

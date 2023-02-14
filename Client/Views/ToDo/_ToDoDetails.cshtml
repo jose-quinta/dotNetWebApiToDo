@@ -1,0 +1,70 @@
+@model Client.Models.ToDo
+
+<div class="container overflow-auto" style="height: 300px;">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row mb-2">
+        <div class="row form-group">
+            <div class="col-8 col-sm-8 col-md-8 col-lg-8">
+                <div class="col-12">
+                    <label asp-for="Title" class="col-form-label"></label>
+                </div>
+                <div class="col-12">
+                    <input asp-for="Title" class="form-control" />
+                </div>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                <div class="col-12">
+                    <label asp-for="Done" class="col-form-label"></label>
+                </div>
+                <div class="col-12">
+                    <input type="checkbox" asp-for="Done" readonly aria-disabled="true" class="offset-2" style="width: 30%; height: 30px;" />
+                </div>
+                <span asp-validation-for="Done" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-12">
+            <label asp-for="Description" class="col-form-label"></label>
+        </div>
+        <div class="col-12">
+            <textarea asp-for="Description" name="Description" class="form-control" rows="6"></textarea>
+        </div>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="row mb-2">
+        <div class="col-12">
+            <label asp-for="CreatedAt" class="col-form-label"></label>
+        </div>
+        <div class="col-12">
+            <input asp-for="CreatedAt" readonly class="form-control" />
+        </div>
+        <span asp-validation-for="CreatedAt" class="text-danger"></span>
+    </div>
+    <div class="row mb-2">
+        <div class="col-12">
+            <label asp-for="UpdatedAt" class="col-form-label"></label>
+        </div>
+        <div class="col-12">
+            <input asp-for="UpdatedAt" readonly class="form-control" />
+        </div>
+        <span asp-validation-for="UpdatedAt" class="text-danger"></span>
+    </div>
+    <div class="row form-group">
+        <div class="offset-sm-2 offset-md-3 col-12 col-sm-10 col-md-8 col-lg-6">
+            <div class="row form-group">
+                <div class="col-4 col-sm-5 col-md-6 col-lg-6">
+                    <a class="btn btn-primary form-control editToDo" data-id="Id" data-toggle="modal">Edit</a>
+                </div>
+                <div class="col-4 col-sm-5 col-md-6 col-lg-6">
+                    <button type="button" class="btn btn-secondary form-control" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

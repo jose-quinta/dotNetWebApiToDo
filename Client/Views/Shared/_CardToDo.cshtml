@@ -1,0 +1,48 @@
+@model Client.Models.ToDo
+@{
+    var verify = true;
+}
+
+<div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-3">
+    <div class="border rounded px-4 py-2">
+        <div class="row form-group mb-2">
+            <div class="col-8">
+                @Html.DisplayNameFor(m => m.Title) : @Model.Title
+            </div>
+            <div class="col-4">
+                @Html.DisplayNameFor(m => m.Done) : @if (Model.Done == verify) { <span> &#10004; </span> } else { <span> &#10006; </span> }
+            </div>
+        </div>
+        <div class="overflow-hidden" style="height: 100px;">
+            @Html.DisplayNameFor(m => m.Description) : @Model.Description
+        </div>
+        <div class="border-top mx-auto my-0 p-2 text-center">
+            <div class="row form-group">
+                <div class="col-12 m-auto col-sm-6 col-md-6 m-md-0 col-lg-6 mb-2">
+                    <div class="row form-group">
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                            <button type="submit" class="btn btn-primary rounded text-white form-control editToDo" data-id="@Model.Id" data-toggle="modal">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                            <button type="submit" class="btn btn-secondary rounded text-white form-control detailsToDo" data-id="@Model.Id" data-toggle="modal">
+                                <i class="fas fa-list-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 m-auto col-sm-6 col-md-6 m-md-0 col-lg-6 mb-2">
+                    <div class="row form-group">
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                            <partial name="_ToDoToogle" model="@Model" />
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                            <partial name="_ToDoDelete" model="@Model" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
